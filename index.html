@@ -74,18 +74,23 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-/bQdsTh/da6pkI1MST/rWKFNjaCP5gBSY4sEBT38Q/9RBh9AH40zEOg7Hlq2THRZ"
         crossorigin="anonymous"></script>
+
+
     <script>
+        // getupdate function --> gets the inputs from the title and task and stores it to localstorage as array using json format.
+
         function getandupdate(){
-            console.log("updating list....");
+            // console.log("updating list....");
             tit = document.getElementById("title").value;
             dsc = document.getElementById("task").value;
+            console.log("ingetandupdate")
             if(localStorage.getItem("tasks") == null){
                 tasksjsn = [];
                 tasksjsn.push([tit,dsc]);
                 localStorage.setItem("tasks",JSON.stringify(tasksjsn));
             }
             else{
-                console.log("in else")
+                // console.log("in else")
                 tjsn_str = localStorage.getItem("tasks");
                 tasksjsn = JSON.parse(tjsn_str);
                 tasksjsn.push([tit,dsc]);
@@ -94,19 +99,27 @@
             update();
 
         }
+
+        // update function  --> updating array stored in localstorage on the webfrontend as pending tasks.
+
         function update(){
+            console.log("inupdate")
             if(localStorage.getItem("tasks") == null){
                 tasksjsn = [];
                 localStorage.setItem("tasks",JSON.stringify(tasksjsn));
             }
             else{
-                console.log("in else")
+                // console.log("in else")
                 tjsn_str = localStorage.getItem("tasks");
                 tasksjsn = JSON.parse(tjsn_str);
             }
 
             let tbd = document.getElementById("tbd");
             let str = "";
+
+            // iterating to the array udapted with the entries and changing the table html file (using str) with changes in on app.
+            // also added a delete button which calls the deleted function with input as index of the array stored in localstorage.
+
             tasksjsn.forEach((element,index) => {
                 str += `
                   <tr>
@@ -118,14 +131,15 @@
         });
         tbd.innerHTML = str;
     }
-        
-        add = document.getElementById("add");
+
+        add = document.getElementById("add"); // add button triggers the getandupdate function.
         add.addEventListener("click",getandupdate);
-        update();
+
+        // delete function uses the splice function of array to remove a element from ith index.
+        // then updating it to the html file using update function.
+
         function deleted(itemindex){
-            console.log("Delete",itemindex);
-            // tjsn_str = localStorage.getItem("tasks");
-            // tasksjsn = JSON.parse(tjsn_str);
+            // console.log("Delete",itemindex);
             tasksjsn.splice(itemindex,1);
             localStorage.setItem("tasks",JSON.stringify(tasksjsn));
             update();
