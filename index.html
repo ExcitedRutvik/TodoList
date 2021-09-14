@@ -5,6 +5,8 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="84496786417-1kc6skg885js9tek0mndv2f6lmchbmu4.apps.googleusercontent.com">
 
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -14,6 +16,7 @@
 </head>
 
 <body>
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
     <ul class="nav nav-tabs">
         <li class="nav-item">
             <a class="nav-link active" aria-current="page" style="background-color: greenyellow" href="#">Todolist</a>
@@ -144,6 +147,17 @@
             localStorage.setItem("tasks",JSON.stringify(tasksjsn));
             update();
         }
+    </script>
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+          }
+          
+    
     </script>
 </body>
 
